@@ -7,18 +7,43 @@ public class Main {
         final byte month_in_year = 12;
         final byte percent = 100;
 
+        int principal=0;
+        int years=0;
+        float interest = 0;
+        int numberOfPayments= 0;
+        float monthlyInterest= 0;
+
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Principal: ");
-        int principal = scanner.nextInt();
+        while (true) {
+            System.out.print("Principal: ");
+            principal = scanner.nextInt();
+            if (principal >= 1000 && principal <= 1_000_000) {
+                break;
+            }
+            System.out.println("Enter a valid number between 1000 and 1000000");
+        }
 
-        System.out.print("Annual Interest: ");
-        float interest = scanner.nextFloat();
-        float monthlyInterest = interest/percent/month_in_year;
+        while (true) {
+            System.out.print("Annual Interest: ");
+            interest = scanner.nextFloat();
+            if (interest > 0 ) {
+                monthlyInterest = interest / percent / month_in_year;
+                break;
+            }
+            System.out.println("Enter a valid interest number");
 
-        System.out.print("Years: ");
-        int years = scanner.nextInt();
-        int numberOfPayments = years*month_in_year;
+        }
+
+        while (true){
+            System.out.print("Years: ");
+            years = scanner.nextInt();
+            if (years >= 1 && years <= 30) {
+                numberOfPayments = years * month_in_year;
+                break;
+            }
+            System.out.println("Enter a valid year between 0 and 30");
+        }
 
         //mortgage formula = p*(i*(1+y)^n)/((1+y)^n-1)
         double brackets = Math.pow(1+monthlyInterest,numberOfPayments);
@@ -27,6 +52,5 @@ public class Main {
         NumberFormat mortgageUpdate = NumberFormat.getCurrencyInstance();
         String result = mortgageUpdate.format(mortgage);
         System.out.print("Mortgage: " + result);
-
     }
 }
